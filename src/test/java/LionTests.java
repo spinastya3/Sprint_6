@@ -20,7 +20,6 @@ public class LionTests {
         try {
             new Lion("Оно", feline);
             org.junit.Assert.fail("Ожидалось исключение");
-
         } catch (Exception e) {
             assertEquals("Используйте допустимые значения пола животного - самец или самка", e.getMessage());
         }
@@ -40,7 +39,14 @@ public class LionTests {
         Lion lion = new Lion("Самец", feline);
         Mockito.when(feline.getFood("Хищник")).thenReturn(List.of("Животные", "Птицы", "Рыба"));
         List<String> result = lion.getFood();
-        Mockito.verify(feline).getFood("Хищник");
         assertEquals(List.of("Животные", "Птицы", "Рыба"), result);
+    }
+
+    @Test
+    public void getFoodVerifyTests() throws Exception{
+
+        Lion lion = new Lion("Самец", feline);
+        lion.getFood();
+        Mockito.verify(feline).getFood("Хищник");
     }
 }

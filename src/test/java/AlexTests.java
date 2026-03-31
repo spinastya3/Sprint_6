@@ -54,7 +54,12 @@ public class AlexTests {
         List<String> menu = List.of("Стейк","Суши");
         Mockito.when(feline.getFood("Хищник")).thenReturn(menu);
         List<String> result = alex.getFood();
-        Mockito.verify(feline).getFood("Хищник");
         assertEquals(menu, result);
+    }
+
+    @Test
+    public void getFoodVerifyTest() throws Exception{
+        alex.getFood();
+        Mockito.verify(feline).getFood("Хищник");
     }
 }

@@ -1,5 +1,6 @@
 import com.example.Feline;
 import com.example.Lion;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,6 +12,7 @@ import static org.junit.Assert.assertEquals;
 @RunWith(Parameterized.class)
 public class LionManeTests {
 
+    private AutoCloseable closeable;
     private final String sex;
     private final boolean result;
 
@@ -29,7 +31,7 @@ public class LionManeTests {
 
     @Before
     public void init() {
-        MockitoAnnotations.initMocks(this);
+        closeable = MockitoAnnotations.openMocks(this);
     }
 
     @Mock
@@ -40,5 +42,10 @@ public class LionManeTests {
         Lion lion = new Lion(sex, feline);
         boolean actual = lion.doesHaveMane();
         assertEquals(result, actual);
+    }
+
+    @After
+    public void tearDown() throws Exception{
+        closeable.close();
     }
 }
